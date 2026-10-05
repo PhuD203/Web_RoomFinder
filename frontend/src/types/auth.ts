@@ -16,4 +16,5 @@ export type RegisterRequest = {
   email: string;
   password: string;
   phone: string;
+  type: "Admin" | "User";
 };

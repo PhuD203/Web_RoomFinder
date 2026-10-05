@@ -121,10 +121,10 @@ export default function Infoprofile({ data }: { data: InfoProfile | null }) {
                 avatarPreview
                   ? avatarPreview
                   : isAvatarRemoved
-                    ? "http://localhost:507/images/Avatar/none.jpg?d=mp&s=150"
+                    ? `${import.meta.env.VITE_SERVER_URL}/images/Avatar/none.jpg?d=mp&s=150`
                     : user.avatar
-                      ? `http://localhost:507${user.avatar}`
-                      : "http://localhost:507/images/Avatar/none.jpg?d=mp&s=150"
+                      ? `${import.meta.env.VITE_SERVER_URL}${user.avatar}`
+                      : `${import.meta.env.VITE_SERVER_URL}/images/Avatar/none.jpg?d=mp&s=150`
               }
               alt="Avatar"
               className="h-full w-full object-cover"

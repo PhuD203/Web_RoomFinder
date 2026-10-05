@@ -61,6 +61,7 @@ export default function Register() {
         phone,
         email,
         password,
+        type: "User",
       });
       setIsSuccess(true);
       setMessage("Đăng ký thành công!"); // navigate("/");

@@ -55,7 +55,7 @@ export default function ContactCard({ price, owner }: ContactCardProps) {
 
               <div className="flex items-center gap-3">
                 <img
-                  src={`http://localhost:507${owner.avatar}`}
+                  src={`${import.meta.env.VITE_SERVER_URL}${owner.avatar}`}
                   alt={owner.name}
                   className="h-12 w-12 rounded-full object-cover"
                 />
@@ -81,9 +81,18 @@ export default function ContactCard({ price, owner }: ContactCardProps) {
                 Gọi điện
               </a>
 
-              <button className="h-12 w-full rounded-xl border border-[#2D2F33] font-semibold transition hover:bg-gray-50">
+              <a
+                href={
+                  owner.phone
+                    ? `https://zalo.me/${owner.phone.replace(/\s/g, "")}`
+                    : undefined
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-12 items-center justify-center rounded-xl border border-[#2D2F33] font-semibold transition hover:bg-gray-50"
+              >
                 Nhắn Zalo
-              </button>
+              </a>
             </div>
 
             <p className="mt-4 text-center text-xs leading-5 text-gray-400">

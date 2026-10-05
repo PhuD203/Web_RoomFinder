@@ -237,7 +237,7 @@ export default function PostedRoomsPage() {
                   >
                     <td className="px-5 py-4">
                       <img
-                        src={`http://localhost:507${room.image}`}
+                        src={`${import.meta.env.VITE_SERVER_URL}${room.image}`}
                         alt={room.title}
                         className="h-20 w-28 rounded-xl object-cover"
                       />
@@ -316,7 +316,7 @@ export default function PostedRoomsPage() {
               className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
             >
               <img
-                src={`http://localhost:507${room.image}`}
+                src={`${import.meta.env.VITE_SERVER_URL}${room.image}`}
                 alt={room.title}
                 className="h-48 w-full object-cover"
               />

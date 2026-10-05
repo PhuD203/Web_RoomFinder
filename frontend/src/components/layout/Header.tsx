@@ -91,8 +91,8 @@ export default function Header() {
                   <img
                     src={
                       avatar
-                        ? `http://localhost:507${avatar}`
-                        : "http://localhost:507/images/Avatar/none.jpg"
+                        ? `${import.meta.env.VITE_SERVER_URL}${avatar}`
+                        : `${import.meta.env.VITE_SERVER_URL}/images/Avatar/none.jpg`
                     }
                     alt="Avatar"
                     className="h-full w-full object-cover"
@@ -101,13 +101,15 @@ export default function Header() {
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  onClick={() => setShowFeedback(true)}
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600"
-                >
-                  Góp ý
-                </button>
+                <Link to="/login">
+                  <button
+                    type="button"
+                    onClick={() => setShowFeedback(true)}
+                    className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                  >
+                    Góp ý
+                  </button>
+                </Link>
                 <Link
                   to="/login"
                   className="text-sm font-medium text-gray-700 hover:text-blue-600"
@@ -181,8 +183,8 @@ export default function Header() {
                       <img
                         src={
                           avatar
-                            ? `http://localhost:507${avatar}`
-                            : "http://localhost:507/images/Avatar/none.jpg"
+                            ? `${import.meta.env.VITE_SERVER_URL}${avatar}`
+                            : `${import.meta.env.VITE_SERVER_URL}/images/Avatar/none.jpg`
                         }
                         alt="Avatar"
                         className="h-10 w-10 rounded-full object-cover mt-2"

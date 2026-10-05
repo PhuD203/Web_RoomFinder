@@ -2,35 +2,34 @@ import { Link } from "react-router-dom";
 
 const locations = [
   {
+    id: 1,
     name: "Ninh Kiều",
     city: "Cần Thơ",
-    rooms: 1245,
-    image:
-      "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    rooms: 421,
+    image: `${import.meta.env.VITE_SERVER_URL}/images/Background/CanTho_Location.jpg`,
   },
   {
-    name: "Cái Răng",
-    city: "Cần Thơ",
-    rooms: 856,
-    image:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80",
+    id: 2,
+    name: "Đồ Sơn",
+    city: "Hải Phòng",
+    rooms: 156,
+    image: `${import.meta.env.VITE_SERVER_URL}/images/Background/HaiPhong_Location.jpg`,
   },
   {
-    name: "Long Xuyên",
-    city: "An Giang",
+    id: 3,
+    name: "Tân Cảng",
+    city: "TP. Hồ Chí Minh",
     rooms: 523,
-    image:
-      "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=800&q=80",
+    image: `${import.meta.env.VITE_SERVER_URL}/images/Background/HCM_Location.jpg`,
   },
   {
-    name: "Thốt Nốt",
-    city: "Cần Thơ",
+    id: 4,
+    name: "Hoàn Kiếm",
+    city: "Hà Nội",
     rooms: 342,
-    image:
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80",
+    image: `${import.meta.env.VITE_SERVER_URL}/images/Background/HaNoi_Location.jpg`,
   },
 ];
-
 export default function PopularLocations() {
   return (
     <section className="py-16">

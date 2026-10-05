@@ -182,7 +182,7 @@ const PictureRoom = forwardRef<PictureRoomRef, { picture?: string[] }>(
 
                     if (img.dataset.fallback !== "true") {
                       img.dataset.fallback = "true";
-                      img.src = `http://localhost:507${image.url}`;
+                      img.src = `${import.meta.env.VITE_SERVER_URL}${image.url}`;
                     } else {
                       img.src = "/images/no-image.png";
                     }

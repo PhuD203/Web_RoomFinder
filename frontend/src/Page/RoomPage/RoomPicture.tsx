@@ -15,7 +15,7 @@ export default function RoomPicture({
       {/* MAIN IMAGE */}
       <div className="relative h-[280px] overflow-hidden sm:h-[400px] lg:h-[520px]">
         <img
-          src={`http://localhost:507${pictures[activeImage]}`}
+          src={`${import.meta.env.VITE_SERVER_URL}${pictures[activeImage]}`}
           alt=""
           className="h-full w-full object-cover transition-all duration-300"
         />
@@ -35,7 +35,7 @@ export default function RoomPicture({
             className="group relative overflow-hidden"
           >
             <img
-              src={`http://localhost:507${image.image}`}
+              src={`${import.meta.env.VITE_SERVER_URL}${image.image}`}
               alt=""
               className="h-full min-h-[250px] w-full object-cover transition duration-300 group-hover:scale-105"
             />
@@ -62,7 +62,7 @@ export default function RoomPicture({
             }`}
           >
             <img
-              src={`http://localhost:507${image}`}
+              src={`${import.meta.env.VITE_SERVER_URL}${image}`}
               alt=""
               className="h-full w-full object-cover"
             />

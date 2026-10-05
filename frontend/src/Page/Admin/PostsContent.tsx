@@ -21,7 +21,7 @@ export default function PostsContent({
     null,
   );
   const [posts, setPosts] = useState<PostContent[]>([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [search, setSearch] = useState("");
@@ -38,6 +38,8 @@ export default function PostsContent({
       } catch (error) {
         console.error("Không lấy được danh sách bài đăng:", error);
         setPosts([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -217,7 +219,7 @@ export default function PostsContent({
           </p>
         </div>
         {/*  DESKTOP */}
-        <div className="hidden h-[370px] flex-col overflow-x-auto md:flex bg-white mx-2 mb-3 rounded-b-2xl border border-gray-300">
+        <div className="hidden h-[402px] flex-col overflow-x-auto md:flex bg-white mx-2 mb-3 rounded-b-2xl border border-gray-300">
           <table className="w-full min-w-[900px]">
             <thead>
               <tr className="border-b border-gray-200 bg-[#FAFAF8] text-left text-sm text-gray-500">
@@ -231,92 +233,112 @@ export default function PostsContent({
             </thead>
 
             <tbody>
-              {filteredPosts.map((post) => (
-                <tr
-                  key={post.id}
-                  className="border-b border-gray-100 last:border-0 hover:bg-gray-50"
-                >
-                  {/* IMAGE */}
-
-                  <td className="pl-6 py-4">
-                    <img
-                      src={`http://localhost:507${post.imageUrl}`}
-                      alt={post.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-30 h-16 rounded-lg object-cover"
-                    />
-                  </td>
-
-                  {/* POST */}
-
-                  <td className="px-6 py-4">
-                    <p className="max-w-xs truncate font-medium text-[#2D2F33]">
-                      {post.title}
-                    </p>
-
-                    <p className="mt-1 max-w-xs truncate text-xs text-gray-500">
-                      {post.address}
-                    </p>
-                  </td>
-
-                  {/* OWNER */}
-
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    {post.ownerName}
-                  </td>
-
-                  {/* PRICE */}
-
-                  <td className="px-6 py-4 text-sm font-semibold text-[#2D2F33]">
-                    {post.price}
-                  </td>
-
-                  {/* DATE */}
-
-                  <td className="px-6 py-4 text-sm text-gray-600">
-                    {post.createdAt}
-                  </td>
-
-                  {/* ACTION */}
-
-                  <td className="w-1 whitespace-nowrap px-6 py-4">
-                    <div className="flex justify-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleViewPost(post.id)}
-                        className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-[#2D2F33] transition hover:bg-gray-100"
-                      >
-                        Xem
-                      </button>
-
-                      {type !== "rejected" && (
-                        <>
-                          {/* Duyệt */}
-                          <button
-                            type="button"
-                            onClick={() => handleStatus(post.id, "rejected")}
-                            className="rounded-lg bg-red-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-red-700"
-                          >
-                            Loại
-                          </button>
-
-                          {/* Vi phạm - chỉ hiện khi cả 2 điều kiện đúng */}
-                          {type !== "approved" && (
-                            <button
-                              type="button"
-                              onClick={() => handleStatus(post.id, "approved")}
-                              className="rounded-lg bg-green-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-green-700"
-                            >
-                              Duyệt
-                            </button>
-                          )}
-                        </>
-                      )}
+              {loading ? (
+                <tr>
+                  <td colSpan={6}>
+                    <div className="flex  items-center justify-center">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-[#2D2F33]" />
                     </div>
                   </td>
                 </tr>
-              ))}
+              ) : filteredPosts.length === 0 ? (
+                <tr>
+                  <td colSpan={6}>
+                    <div className="flex pt-[100px] items-center justify-center text-sm text-gray-500">
+                      Không tìm thấy bài đăng.
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                filteredPosts.map((post) => (
+                  <tr
+                    key={post.id}
+                    className="border-b border-gray-100 last:border-0 hover:bg-gray-50"
+                  >
+                    {/* IMAGE */}
+
+                    <td className="pl-6 py-4">
+                      <img
+                        src={`${import.meta.env.VITE_SERVER_URL}${post.imageUrl}`}
+                        alt={post.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-28 h-15 rounded-lg object-cover"
+                      />
+                    </td>
+
+                    {/* POST */}
+
+                    <td className="px-6 py-4">
+                      <p className="max-w-xs truncate font-medium text-[#2D2F33]">
+                        {post.title}
+                      </p>
+
+                      <p className="mt-1 max-w-xs truncate text-xs text-gray-500">
+                        {post.address}
+                      </p>
+                    </td>
+
+                    {/* OWNER */}
+
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                      {post.ownerName}
+                    </td>
+
+                    {/* PRICE */}
+
+                    <td className="px-6 py-4 text-sm font-semibold text-[#2D2F33]">
+                      {post.price}
+                    </td>
+
+                    {/* DATE */}
+
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                      {post.createdAt}
+                    </td>
+
+                    {/* ACTION */}
+
+                    <td className="w-1 whitespace-nowrap px-6 py-4">
+                      <div className="flex justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleViewPost(post.id)}
+                          className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-[#2D2F33] transition hover:bg-gray-100"
+                        >
+                          Xem
+                        </button>
+
+                        {type !== "rejected" && (
+                          <>
+                            {/* Duyệt */}
+                            <button
+                              type="button"
+                              onClick={() => handleStatus(post.id, "rejected")}
+                              className="rounded-lg bg-red-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-red-700"
+                            >
+                              Loại
+                            </button>
+
+                            {/* Vi phạm - chỉ hiện khi cả 2 điều kiện đúng */}
+                            {type !== "approved" && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleStatus(post.id, "approved")
+                                }
+                                className="rounded-lg bg-green-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-green-700"
+                              >
+                                Duyệt
+                              </button>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
           <div className="mt-auto flex justify-center">
@@ -329,53 +351,53 @@ export default function PostsContent({
         </div>
         {/* MOBILE */}
         <div className="divide-y divide-gray-100 md:hidden">
-          {filteredPosts.map((post) => (
-            <div key={post.id} className="p-4">
-              <div className="flex gap-4">
-                <img
-                  src={`http://localhost:507${post.imageUrl}`}
-                  alt={post.title}
-                  className="h-20 w-24 shrink-0 rounded-xl object-cover"
-                />
+          {loading ? (
+            <div className="flex h-[300px] items-center justify-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-[#2D2F33]" />
+            </div>
+          ) : filteredPosts.length === 0 ? (
+            <div className="flex h-[300px] items-center justify-center text-sm text-gray-500">
+              Không tìm thấy bài đăng.
+            </div>
+          ) : (
+            filteredPosts.map((post) => (
+              <div key={post.id} className="p-4">
+                <div className="flex gap-4">
+                  <img
+                    src={`${import.meta.env.VITE_SERVER_URL}${post.imageUrl}`}
+                    alt={post.title}
+                    className="h-20 w-24 shrink-0 rounded-xl object-cover"
+                  />
 
-                <div className="min-w-0 flex-1">
-                  <p className="line-clamp-2 font-semibold text-[#2D2F33]">
-                    {post.title}
-                  </p>
+                  <div className="min-w-0 flex-1">
+                    <p className="line-clamp-2 font-semibold text-[#2D2F33]">
+                      {post.title}
+                    </p>
 
-                  <p className="mt-1 line-clamp-1 text-sm text-gray-500">
-                    {post.address}
-                  </p>
+                    <p className="mt-1 line-clamp-1 text-sm text-gray-500">
+                      {post.address}
+                    </p>
 
-                  <p className="mt-2 text-sm font-semibold text-[#2D2F33]">
-                    {post.price}
-                  </p>
+                    <p className="mt-2 text-sm font-semibold text-[#2D2F33]">
+                      {post.price}
+                    </p>
 
-                  <p className="mt-1 text-xs text-gray-500">{post.createdAt}</p>
+                    <p className="mt-1 text-xs text-gray-500">
+                      {post.createdAt}
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
-                <button
-                  type="button"
-                  onClick={() => handleViewPost(post.id)}
-                  className="rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-[#2D2F33] transition hover:bg-gray-100"
-                >
-                  Xem chi tiết
-                </button>
-                {type !== "approved" && (
-                  <>
-                    {/* Duyệt */}
-                    <button
-                      type="button"
-                      onClick={() => handleStatus(post.id, "approved")}
-                      className="rounded-lg bg-green-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-green-700"
-                    >
-                      Duyệt
-                    </button>
-
-                    {/* Vi phạm - chỉ hiện khi cả 2 điều kiện đúng */}
-                    {type !== "rejected" && (
+                <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                  <button
+                    type="button"
+                    onClick={() => handleViewPost(post.id)}
+                    className="rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-[#2D2F33] transition hover:bg-gray-100"
+                  >
+                    Xem chi tiết
+                  </button>
+                  {type !== "rejected" && (
+                    <>
                       <button
                         type="button"
                         onClick={() => handleStatus(post.id, "rejected")}
@@ -383,26 +405,33 @@ export default function PostsContent({
                       >
                         Loại
                       </button>
-                    )}
-                  </>
-                )}
+                      {type !== "approved" && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleStatus(post.id, "approved")}
+                            className="rounded-lg bg-green-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-green-700"
+                          >
+                            Duyệt
+                          </button>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
+            ))
+          )}
+          {!loading && filteredPosts.length > 0 && (
+            <div className="mt-auto flex justify-center">
+              <Pagination_Table
+                currentPage={currentPage}
+                totalroom={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </div>
-          ))}
-          <div className="mt-auto flex justify-center">
-            <Pagination_Table
-              currentPage={currentPage}
-              totalroom={totalPages}
-              onPageChange={setCurrentPage}
-            />
-          </div>
+          )}
         </div>
-        {/*EMPTY */}
-        {filteredPosts.length === 0 && (
-          <div className="p-8 text-center text-sm text-gray-500">
-            Không tìm thấy người dùng.
-          </div>
-        )}
       </div>
       {/* MODAL */}
       {selectedPost && (

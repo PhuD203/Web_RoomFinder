@@ -49,7 +49,7 @@ const AddressMap = forwardRef<AddressMapRef, AddressMapProps>(
         {/* ADDRESS */}
         <div className="mt-5">
           <label className="mb-2 block text-sm font-bold text-[#2D2F33]">
-            Địa chỉ đã chọn
+            Địa chỉ chi tiết
           </label>
           <input
             type="text"

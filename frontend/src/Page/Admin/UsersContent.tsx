@@ -5,12 +5,21 @@ import {
   getListUser_Admin,
   changeStatusUser_Admin,
 } from "../../services/Admin";
+import { register } from "../../services";
 
 export default function UsersContent() {
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState<UserContent[]>([]);
   const usersPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
+  const [showAddUser, setShowAddUser] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -83,6 +92,40 @@ export default function UsersContent() {
       console.error("Không thể cập nhật trạng thái:", error);
     }
   };
+  const handleCreateAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (password !== confirmpassword) {
+      alert("Mật khẩu xác nhận không khớp");
+      return;
+    }
+
+    try {
+      await register({
+        name,
+        email,
+        phone,
+        password,
+        type: "Admin",
+      });
+
+      alert("Tạo tài khoản Admin thành công");
+
+      setShowAddUser(false);
+
+      setName("");
+      setEmail("");
+      setPhone("");
+      setPassword("");
+      setConfirmPassword("");
+
+      const data = await getListUser_Admin();
+      setUsers(data);
+    } catch (error) {
+      console.error("Không thể tạo tài khoản Admin:", error);
+      alert("Tạo tài khoản thất bại");
+    }
+  };
 
   function PageHeader({
     title,
@@ -134,13 +177,163 @@ export default function UsersContent() {
       {/* Table */}
       <div className=" rounded-2xl border border-gray-200 bg-gray-100 shadow-sm">
         {/* Table header */}
-        <div className="border-b border-gray-200 px-6 py-5">
-          <h2 className="font-bold text-[#2D2F33]">Người dùng</h2>
+        <div className=" flex items-center justify-between  border-b border-gray-200 px-6 py-5">
+          <div>
+            <h2 className="font-bold text-[#2D2F33]">Người dùng</h2>
 
-          <p className="mt-1 text-sm text-gray-600">
-            {currentUsers.length} người dùng
-          </p>
+            <p className="mt-1 text-sm text-gray-600">
+              {currentUsers.length} người dùng
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowAddUser(true)}
+            className="flex items-center gap-2 rounded-lg bg-[#2D2F33] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#44474b]"
+          >
+            <span className="text-lg leading-none">+</span>
+            Tạo tài khoản
+          </button>
         </div>
+        {showAddUser && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
+                <div>
+                  <h2 className="text-lg font-bold text-[#2D2F33]">
+                    Thêm tài khoản Admin
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Tạo tài khoản quản trị viên mới
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAddUser(false)}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-xl text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Form */}
+              <form className="space-y-4 p-6" onSubmit={handleCreateAdmin}>
+                {/* Họ tên */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    Họ và tên
+                  </label>
+
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Nhập họ và tên"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-[#FAFAF8] px-4 text-sm outline-none transition focus:border-[#2D2F33]"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Nhập email"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-[#FAFAF8] px-4 text-sm outline-none transition focus:border-[#2D2F33]"
+                  />
+                </div>
+
+                {/* Số điện thoại */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    Số điện thoại
+                  </label>
+
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Nhập số điện thoại"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-[#FAFAF8] px-4 text-sm outline-none transition focus:border-[#2D2F33]"
+                  />
+                </div>
+
+                {/* Mật khẩu */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    Mật khẩu
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Nhập mật khẩu"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-[#FAFAF8] px-4 text-sm outline-none transition focus:border-[#2D2F33]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-500 hover:text-[#2D2F33]"
+                    >
+                      {showPassword ? "Ẩn" : "Hiện"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Xác nhận mật khẩu */}
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    Xác nhận mật khẩu
+                  </label>
+
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      value={confirmpassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Nhập lại mật khẩu"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-[#FAFAF8] px-4 pr-16 text-sm outline-none transition focus:border-[#2D2F33]"
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-500 hover:text-[#2D2F33]"
+                    >
+                      {showConfirmPassword ? "Ẩn" : "Hiện"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Buttons */}
+                <div className="flex justify-end gap-3 border-t border-gray-100 pt-5">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddUser(false)}
+                    className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
+                  >
+                    Hủy
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="rounded-xl bg-[#2D2F33] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#44474b]"
+                  >
+                    Tạo tài khoản
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         {/* DESKTOP TABLE */}
         <div className="hidden h-[370px] flex-col overflow-x-auto md:flex bg-white mx-2 mb-3 rounded-b-2xl border border-gray-300">
           <table className="w-full min-w-[900px] ">
@@ -171,7 +364,7 @@ export default function UsersContent() {
                     <div className="flex items-center gap-3">
                       <div className="h-10 w-10 overflow-hidden rounded-full bg-[#E9E9E4]">
                         <img
-                          src={`http://localhost:507${user.avatar}`}
+                          src={`${import.meta.env.VITE_SERVER_URL}${user.avatar ?? "/images/Avatar/none.jpg"}`}
                           alt={user.name}
                           className="h-full w-full object-cover"
                         />
@@ -237,7 +430,7 @@ export default function UsersContent() {
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#E9E9E4]">
                   <div className="h-10 w-10 overflow-hidden rounded-full bg-[#E9E9E4]">
                     <img
-                      src={`http://localhost:507${user.avatar}`}
+                      src={`${import.meta.env.VITE_SERVER_URL}${user.avatar ?? "/images/Avatar/none.jpg"}`}
                       alt={user.name}
                       className="h-full w-full object-cover"
                     />

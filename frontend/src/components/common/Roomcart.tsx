@@ -39,7 +39,7 @@ export default function RoomCard({ room, onFavoriteChange }: RoomCardProps) {
       {/* Image */}
       <div className="relative h-56 overflow-hidden">
         <img
-          src={`http://localhost:507${room.image}?auto=format&fit=crop&w=800&q=80`}
+          src={`${import.meta.env.VITE_SERVER_URL}${room.image}?auto=format&fit=crop&w=800&q=80`}
           alt={"Hình ảnh"}
           loading="lazy"
           decoding="async"

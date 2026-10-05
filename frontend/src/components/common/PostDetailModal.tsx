@@ -58,7 +58,7 @@ export default function PostDetailModal({
                 {/* ẢNH LỚN */}
                 <div className="overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    src={`http://localhost:507${post.images[activeImage]}`}
+                    src={`${import.meta.env.VITE_SERVER_URL}${post.images[activeImage]}`}
                     alt={post.title}
                     className="h-64 w-full object-cover sm:h-80"
                   />
@@ -78,7 +78,7 @@ export default function PostDetailModal({
                       }`}
                     >
                       <img
-                        src={`http://localhost:507${image}`}
+                        src={`${import.meta.env.VITE_SERVER_URL}${image}`}
                         alt={`Ảnh phòng ${index + 1}`}
                         className="h-16 w-full object-cover sm:h-20"
                       />
@@ -87,9 +87,7 @@ export default function PostDetailModal({
                 </div>
               </div>
 
-              {/* =================================================
-                    THÔNG TIN CƠ BẢN
-                ================================================= */}
+              {/* THÔNG TIN CƠ BẢN */}
 
               <div className="rounded-xl border border-gray-200 p-5">
                 <h3 className="mb-4 text-base font-bold text-[#2D2F33]">
@@ -164,9 +162,7 @@ export default function PostDetailModal({
                 </div>
               </div>
 
-              {/* =================================================
-                    ĐỊA CHỈ
-                ================================================= */}
+              {/* ĐỊA CHỈ */}
 
               <div className="rounded-xl border border-gray-200 p-5">
                 <h3 className="mb-4 text-base font-bold text-[#2D2F33]">
@@ -184,9 +180,7 @@ export default function PostDetailModal({
                 </div>
               </div>
 
-              {/* =================================================
-                    GIÁ ĐIỆN NƯỚC
-                ================================================= */}
+              {/* GIÁ ĐIỆN NƯỚC */}
 
               <div className="rounded-xl border border-gray-200 p-5">
                 <h3 className="mb-4 text-base font-bold text-[#2D2F33]">
