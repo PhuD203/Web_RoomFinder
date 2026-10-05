@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.FavoriteRequestDTO;
-import com.example.backend.service.FavoriteService;
+import com.example.backend.dto.room.request.FavoriteRequestDTO;
+import com.example.backend.service.Favorite.FavoriteService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

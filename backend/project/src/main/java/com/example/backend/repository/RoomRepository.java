@@ -1,10 +1,10 @@
 package com.example.backend.repository;
 
-import com.example.backend.dto.AdminPostDTO;
-import com.example.backend.dto.MyRoomPostDTO;
-import com.example.backend.dto.RoomCartDTO;
-import com.example.backend.dto.RoomInfoDTO;
-import com.example.backend.dto.RoomTitleDTO;
+import com.example.backend.dto.admin.AdminPostDTO;
+import com.example.backend.dto.room.response.MyRoomPostDTO;
+import com.example.backend.dto.room.response.RoomCartDTO;
+import com.example.backend.dto.room.response.RoomInfoDTO;
+import com.example.backend.dto.room.response.RoomTitleDTO;
 import com.example.backend.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room, String> {
     @Query("""
-                SELECT new com.example.backend.dto.RoomCartDTO(
+                SELECT new com.example.backend.dto.room.response.RoomCartDTO(
                     r.id,
                     r.title,
                     r.price,
@@ -42,7 +42,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
             @Param("maxArea") Integer maxArea);
 
     @Query("""
-                SELECT new com.example.backend.dto.RoomTitleDTO(
+                SELECT new com.example.backend.dto.room.response.RoomTitleDTO(
                     r.id,
                     r.title,
                     r.price,
@@ -57,7 +57,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
             @Param("id") String id);
 
     @Query("""
-                SELECT new com.example.backend.dto.RoomInfoDTO(
+                SELECT new com.example.backend.dto.room.response.RoomInfoDTO(
                     r.type,
                     r.people,
                     r.furniture,
@@ -86,7 +86,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
     String getOwnerId(@Param("id") String id);
 
     @Query("""
-                SELECT new com.example.backend.dto.RoomCartDTO(
+                SELECT new com.example.backend.dto.room.response.RoomCartDTO(
                     r.id,
                     r.title,
                     r.price,
@@ -131,7 +131,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
     List<RoomCartDTO> findFavoriteRooms(@Param("userId") String userId);
 
     @Query("""
-                SELECT new com.example.backend.dto.MyRoomPostDTO(
+                SELECT new com.example.backend.dto.room.response.MyRoomPostDTO(
                     r.id,
                     ri.imageUrl,
                     r.title,
@@ -160,7 +160,7 @@ public interface RoomRepository extends JpaRepository<Room, String> {
             @Param("ownerId") String ownerId);
 
     @Query("""
-                SELECT new com.example.backend.dto.AdminPostDTO(
+                SELECT new com.example.backend.dto.admin.AdminPostDTO(
                     r.id,
                     rm.imageUrl,
                     r.title,

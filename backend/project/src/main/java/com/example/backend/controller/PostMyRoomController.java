@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.MyRoomPostDTO;
-import com.example.backend.service.MyPostRommService;
+import com.example.backend.dto.room.response.MyRoomPostDTO;
+import com.example.backend.service.Room.MyPostRoomService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
 @RequestMapping("/api/mypostroom")
 public class PostMyRoomController {
 
-    private final MyPostRommService myPostRommService;
+    private final MyPostRoomService myPostRommService;
 
-    public PostMyRoomController(MyPostRommService myPostRommService) {
+    public PostMyRoomController(MyPostRoomService myPostRommService) {
         this.myPostRommService = myPostRommService;
     }
 

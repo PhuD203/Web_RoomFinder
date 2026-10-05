@@ -3,8 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dto.auth.LoginRequestDTO;
 import com.example.backend.dto.auth.LoginResponseDTO;
 import com.example.backend.dto.auth.RegisterRequestDTO;
-import com.example.backend.service.AuthService;
-
+import com.example.backend.service.Auth.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

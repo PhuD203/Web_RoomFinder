@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.backend.dto.UserProfileDTO;
-import com.example.backend.service.UserService;
+import com.example.backend.dto.user.UserProfileDTO;
+import com.example.backend.service.User.UserService;
 
 @RestController
 @RequestMapping("/api/userprofile")

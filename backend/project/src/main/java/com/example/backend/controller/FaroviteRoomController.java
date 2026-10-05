@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.RoomCartDTO;
-import com.example.backend.service.CardRoomService;
+import com.example.backend.dto.room.response.RoomCartDTO;
+import com.example.backend.service.Room.CardRoomService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

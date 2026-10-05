@@ -10,13 +10,21 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class JwtService {
 
-    private final String secret = "trofinder-secret-key-trofinder-secret-key-123456";
+    @Value("${JWT_SECRET}")
+    private String secret;
 
-    private final long expiration = 1000 * 60 * 60 * 12; // 1 giờ
+    @Value("${JWT_EXPIRATION}")
+    private long expiration;
+
+    // private final String secret =
+    // "trofinder-secret-key-trofinder-secret-key-123456";
+
+    // private final long expiration = 1000 * 60 * 60 * 12; // 1 giờ
 
     private SecretKey getKey() {
         return Keys.hmacShaKeyFor(

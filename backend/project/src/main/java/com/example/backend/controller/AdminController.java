@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.dto.AdminPostDTO;
-import com.example.backend.dto.ReportResponseDTO;
-import com.example.backend.dto.UserList_AminDTO;
-import com.example.backend.service.ReportServies;
-import com.example.backend.service.Amin.PostServies;
-import com.example.backend.service.Amin.UserServies;
+import com.example.backend.dto.admin.AdminPostDTO;
+import com.example.backend.dto.admin.AdminUserListDTO;
+import com.example.backend.dto.report.ReportResponseDTO;
+import com.example.backend.service.Admin.AdminPostServies;
+import com.example.backend.service.Admin.AdminUserServies;
+import com.example.backend.service.Report.ReportServies;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -23,18 +24,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final UserServies userservies;
-    private final PostServies postservies;
+    private final AdminUserServies userservies;
+    private final AdminPostServies postservies;
     private final ReportServies reportServies;
 
     // Query 1: Lấy danh sách phòng
     @GetMapping("/getUser")
-    public List<UserList_AminDTO> getListUser_Admin() {
+    public List<AdminUserListDTO> getListUser_Admin() {
         return userservies.getListUser_Amin();
     }
 
     @GetMapping("/getUserReport")
-    public UserList_AminDTO getUser_Report(@RequestParam String id) {
+    public AdminUserListDTO getUser_Report(@RequestParam String id) {
         return userservies.getUser_Report(id);
     }
 

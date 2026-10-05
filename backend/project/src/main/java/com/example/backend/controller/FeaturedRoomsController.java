@@ -4,8 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import com.example.backend.dto.RoomCartDTO;
-import com.example.backend.service.CardRoomService;
+
+import com.example.backend.dto.room.response.RoomCartDTO;
+import com.example.backend.service.Room.CardRoomService;
 
 @RestController
 @RequestMapping("/api/featuredrooms")

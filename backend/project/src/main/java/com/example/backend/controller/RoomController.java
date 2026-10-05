@@ -1,9 +1,9 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.CreateRoomDTO;
-import com.example.backend.dto.RoomDetailDTO;
-import com.example.backend.dto.UpdateRoomDTO;
-import com.example.backend.service.RoomService;
+import com.example.backend.dto.room.request.CreateRoomDTO;
+import com.example.backend.dto.room.request.UpdateRoomDTO;
+import com.example.backend.dto.room.response.RoomDetailDTO;
+import com.example.backend.service.Room.RoomService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

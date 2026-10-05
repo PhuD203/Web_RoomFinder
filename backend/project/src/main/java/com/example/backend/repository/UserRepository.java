@@ -3,8 +3,8 @@ package com.example.backend.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.backend.dto.OwnerDTO;
-import com.example.backend.dto.UserList_AminDTO;
+import com.example.backend.dto.admin.AdminUserListDTO;
+import com.example.backend.dto.user.OwnerDTO;
 import com.example.backend.entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
 
     @Query("""
-                SELECT new com.example.backend.dto.OwnerDTO(
+                SELECT new com.example.backend.dto.user.OwnerDTO(
                     r.id,
                     r.name,
                     r.phone,
@@ -84,7 +84,7 @@ public interface UserRepository extends JpaRepository<User, String> {
                 u.status,
                 u.avatar
             """, nativeQuery = true)
-    List<UserList_AminDTO> getListUser_Amin();
+    List<AdminUserListDTO> getListUser_Amin();
 
     @Query(value = """
             SELECT
@@ -112,5 +112,5 @@ public interface UserRepository extends JpaRepository<User, String> {
                 u.status,
                 u.avatar
             """, nativeQuery = true)
-    UserList_AminDTO getUser_Report(@Param("id") String id);
+    AdminUserListDTO getUser_Report(@Param("id") String id);
 }

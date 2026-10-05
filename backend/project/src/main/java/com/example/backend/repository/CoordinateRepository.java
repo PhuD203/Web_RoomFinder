@@ -1,6 +1,6 @@
 package com.example.backend.repository;
 
-import com.example.backend.dto.CoordinatesDTO;
+import com.example.backend.dto.room.response.CoordinatesDTO;
 import com.example.backend.entity.Coordinate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface CoordinateRepository extends JpaRepository<Coordinate, String> {
 
     @Query("""
-                SELECT new com.example.backend.dto.CoordinatesDTO(
+                SELECT new com.example.backend.dto.room.response.CoordinatesDTO(
                     c.latitude,
                     c.longitude
                 )

@@ -1,6 +1,6 @@
 package com.example.backend.repository;
 
-import com.example.backend.dto.ReportResponseDTO;
+import com.example.backend.dto.report.ReportResponseDTO;
 import com.example.backend.entity.Report;
 
 import java.util.List;

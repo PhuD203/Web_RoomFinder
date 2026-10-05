@@ -5,7 +5,8 @@ public class RegisterRequestDTO {
     private String name;
     private String email;
     private String password;
-    private String sdt;
+    private String phone;
+    private String type;
 
     public String getName() {
         return name;
@@ -31,11 +32,19 @@ public class RegisterRequestDTO {
         this.password = password;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
